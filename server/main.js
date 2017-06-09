@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 var IBM_WATSON_API_KEY = Meteor.settings.IBM_WATSON_API_KEY;
-var NEWS_API_key       = Meteor.settings.NEWS_API_key;
+var NEWS_API_KEY       = Meteor.settings.NEWS_API_KEY;
 var DEFAULT_SOURCES    = ["bbc-news", "cnn", "usa-today", "the-guardian-uk", "google-news", "the-washington-post", "time"];
 
 Meteor.methods({
@@ -29,8 +29,8 @@ Meteor.methods({
 
 	get_articles : function(sources=DEFAULT_SOURCES) {
 		var RETURN_DICT = [];
-		for (var i = 0, len1 = sources.length; i<len1; i++) {  			
-			var result_from_call = HTTP.call("GET" , "https://newsapi.org/v1/articles?source=" + sources[i] + "&apiKey=" + news_API_key);
+		for (var i = 0, len1 = sources.length; i<len1; i++) {  
+			var result_from_call = HTTP.call("GET" , "https://newsapi.org/v1/articles?source=" + sources[i] + "&apiKey=" + NEWS_API_KEY);
 			var articles_for_current_source = result_from_call.data.articles;
 			for (var x=0, len2 = articles_for_current_source.length; x<len2; x++) {
 				RETURN_DICT.push({

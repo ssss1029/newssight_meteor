@@ -1,2 +1,2 @@
 node_modules/
-server/process-env-setup.js
+server/process-env-config.js
