@@ -1,9 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
-var DEFAULT_SOURCES = ["bbc-news", "cnn", "usa-today", "the-guardian-uk", "google-news", "the-washington-post", "time"];
-var news_API_key = "d5164fc6eb62459cb7cc7d14bec9e525";
-var IBM_WATSON_API_KEY = "14d6dd970495dfb0110c90ee2522ac24e311d4d4";
-
+var IBM_WATSON_API_KEY = Meteor.settings.IBM_WATSON_API_KEY;
+var NEWS_API_key       = Meteor.settings.NEWS_API_key;
+var DEFAULT_SOURCES    = ["bbc-news", "cnn", "usa-today", "the-guardian-uk", "google-news", "the-washington-post", "time"];
 
 Meteor.methods({
 	get_source_info : function(sources=DEFAULT_SOURCES) {
