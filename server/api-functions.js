@@ -1,11 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 
-var IBM_WATSON_API_KEY = Meteor.settings.IBM_WATSON_API_KEY;
-var NEWS_API_KEY       = Meteor.settings.NEWS_API_KEY;
-var DEFAULT_SOURCES    = ["bbc-news", "cnn", "usa-today", "the-guardian-uk", "google-news", "the-washington-post", "time"];
+var DEFAULT_SOURCES    = [
+	"bbc-news", 
+	"cnn",
+	"usa-today", 
+	"the-guardian-uk", 
+	"google-news", 
+	"the-washington-post", 
+	"time"
+];
 
 Meteor.methods({
 	get_source_info : function(sources=DEFAULT_SOURCES) {
+		var NEWS_API_KEY       = Meteor.settings.NEWS_API_KEY;
 		var NEWS_API_SOURCES;
 		HTTP.call("GET" , "https://newsapi.org/v1/sources?language=en", function(error, result) {
 			if (error) {
@@ -27,6 +34,7 @@ Meteor.methods({
 	},
 
 	get_articles : function(sources=DEFAULT_SOURCES) {
+		var NEWS_API_KEY       = Meteor.settings.NEWS_API_KEY;
 		var RETURN_DICT = [];
 		for (var i = 0, len1 = sources.length; i<len1; i++) {  
 			var result_from_call = HTTP.call("GET" , "https://newsapi.org/v1/articles?source=" + sources[i] + "&apiKey=" + NEWS_API_KEY);
@@ -51,6 +59,8 @@ Meteor.methods({
 	}, 
 
 	get_website_analysis : function(website='http://www.bbc.com/news/election-us-2016-37953528') {
+		var IBM_WATSON_API_KEY = Meteor.settings.IBM_WATSON_API_KEY;
+				
 		var RETURN = []
 		var url = 'https://gateway-a.watsonplatform.net/calls/url/URLGetRankedNamedEntities?apikey=' + IBM_WATSON_API_KEY;
 		var rv = HTTP.call( 'POST', url, { 'params': {
